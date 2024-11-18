@@ -5,3 +5,17 @@ body {
   font-size: x-large;
   margin: 1em;
 }
+.todo_uncomplete {
+  background-color: #fff;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.todo_complete {
+  background-color: lightgreen;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
