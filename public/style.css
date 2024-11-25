@@ -3,6 +3,24 @@ body {
   color: #666;
   background-color: #f1f1f1;
   font-size: x-large;
+  margin: 0;
+}
+header {
+  background-color: white;
+  padding: 1em;
+  margin: 0;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+header h1{
+  flex-grow:1;
+}
+header button {
+
+}
+main{
   margin: 1em;
 }
 .todo_uncomplete {
@@ -11,6 +29,7 @@ body {
   margin: 1em;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 .todo_complete {
   background-color: lightgreen;
@@ -18,4 +37,27 @@ body {
   margin: 1em;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
+}
+
+.login{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: fit-content;
+  height: fit-content;
+  padding: 5%;
+  border-radius: 20px;
+}
+.login_parent{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
