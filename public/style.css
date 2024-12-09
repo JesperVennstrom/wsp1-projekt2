@@ -17,11 +17,11 @@ header {
 header h1{
   flex-grow:1;
 }
-header button {
-
-}
 main{
   margin: 1em;
+}
+p {
+  color: black;
 }
 .todo_uncomplete {
   background-color: #fff;
@@ -60,4 +60,8 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.error{
+  color: red;
+  font-size: 20px;
 }

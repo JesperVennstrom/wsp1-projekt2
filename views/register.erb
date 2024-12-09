@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" type="text/css" href="/style.css?<%=Time.now.to_i%>">
 
 </head>
@@ -11,19 +11,18 @@
 <body>
     <div class="login_parent">
         <div class="login">
-            <h1>Login</h1>
-            <% if @error %>
-                <p class="error"><%= @error %></p>
-            <% end %>
-            <form action="/login" method="post">
+            <h1>Register</h1>
+            <form action="/register" method="post">
                 <input type="text" name="username" placeholder="Username">
                 <input type="password" name="password" placeholder="Password">
-                <button type="submit">Login</button>
-            </form>
-            <form action="/register" method="get">
                 <button type="submit">Register</button>
+            </form>
+            <form action="/login" method="get">
+                <button type="submit">Login</button>
             </form>
         </div>
     </div>
+</div>
+</div>
 </body>
 </html>
