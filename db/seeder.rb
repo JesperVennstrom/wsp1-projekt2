@@ -1,4 +1,5 @@
 require 'sqlite3'
+require 'bcrypt'
 
 class Seeder
 
@@ -22,7 +23,8 @@ class Seeder
     db.execute('CREATE TABLE users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
-                password TEXT NOT NULL)')
+                password TEXT NOT NULL,
+                admin BOOLEAN DEFAULT FALSE)')
   end
   def self.populate_tables
     db.execute('INSERT INTO todos (title, description, completed, user_id) VALUES ("Gymma", "Gå till gymmet och kör ett bröstpass", 1, 1)')
@@ -30,7 +32,8 @@ class Seeder
     db.execute('INSERT INTO todos (title, description, user_id) VALUES ("Städa", "Dammsuga och torka golven", 1)')
     db.execute('INSERT INTO todos (title, description, user_id) VALUES ("Läsa", "Läs ut boken om Steve Jobs", 1)')
 
-    db.execute('INSERT INTO users (username, password) VALUES ("admin", "admin")')
+    bcrypt_password = BCrypt::Password.create('admin')
+    db.execute('INSERT INTO users (username, password, admin) VALUES ("admin", ?, 1)', [bcrypt_password])
     
   end
   private

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="/style.css?<%=Time.now.to_i%>">
+
+</head>
+<header> 
+    <h1>Administration</h1>
+    <form action="/todos " method="get">
+      <button type="submit">Home</button>
+    </form>
+    <form action="/logout" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </header>
+  <main class = "users">
+    <h1>Users</h1>
+    <ul>
+        <% @users.each do |user| %>
+            <% if user["admin"] == 0 %>
+                <li class = "userlist">
+                    <h2><%= user["username"] %></h2>
+                    <form action="/users/<%=user["id"]%>/delete" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <form action="/users/<%=user["id"]%>/<%=user["admin"]%>" method="post">
+                        <button type="submit">Inspect</button>
+                    </form>
+                </li>
+            <% end %>
+        <% end %>
+    </ul>
+<body>
+
+</body>
+</html>

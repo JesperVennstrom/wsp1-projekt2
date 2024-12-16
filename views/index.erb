@@ -9,6 +9,11 @@
 <body>
   <header> 
     <h1>Todo List</h1>
+    <% if session[:user]['admin'] == 1 %>
+      <form action="/todos/admin " method="get">
+        <button type="submit">Admin</button>
+      </form>
+    <% end %>
     <form action="/logout" method="post">
       <button type="submit">Logout</button>
     </form>

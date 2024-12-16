@@ -1,11 +1,14 @@
 require 'sinatra'
 require 'securerandom'
+require 'bcrypt'
+require 'rack-flash'
 
 class App < Sinatra::Base
     
     configure do
         enable :sessions
         set :session_secret, SecureRandom.hex(64)
+        use Rack::Flash
     end
 
     def db
@@ -29,23 +32,37 @@ class App < Sinatra::Base
     post '/login' do
         user = db.execute('SELECT * FROM users WHERE username = ?', [params[:username]]).first
 
-        if user && user['password'] == params[:password]
+        if user && BCrypt::Password.new(user['password']) == params[:password]
             session[:user] = user
         else 
             status 401
-            @error = 'Fel användarnamn eller lösenord'
+            flash[:error] = 'Fel användarnamn eller lösenord'
         end
         redirect('/login')
     end
     get '/todos' do
-        @todos = db.execute('SELECT * FROM todos WHERE user_id = ?', [session[:user]['id']])
+        if session[:user]
+            @todos = db.execute('SELECT * FROM todos WHERE user_id = ?', [session[:user]['id']])
 
-        erb(:index)
+            erb(:index)
+        else
+            redirect('/login')
+        end
     end
     post '/todos' do
         db.execute('INSERT INTO todos (title, description, user_id) VALUES (?, ?, ?)', [params[:title], params[:description], session[:user]['id']])
         redirect('/todos')
     end
+    get '/todos/admin' do
+        if session[:user] && session[:user]['admin']
+            @users = db.execute('SELECT * FROM users')
+        else 
+            status 401
+            flash[:error] = 'Du har inte behörighet att visa denna sida'
+        end
+        erb(:admin)
+    end
+
     post '/todos/:id/delete' do
         db.execute('DELETE FROM todos WHERE id = ?', [params[:id]])
         redirect('/todos')
@@ -67,7 +84,8 @@ class App < Sinatra::Base
         erb(:register)
     end
     post '/register' do
-        db.execute('INSERT INTO users (username, password) VALUES (?, ?)', [params[:username], params[:password]])
+        password = BCrypt::Password.create(params[:password])
+        db.execute('INSERT INTO users (username, password) VALUES (?, ?)', [params[:username], password])
         redirect('/login')
     end
 

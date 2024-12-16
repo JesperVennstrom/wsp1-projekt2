@@ -65,3 +65,17 @@ li {
   color: red;
   font-size: 20px;
 }
+.users{
+}
+.userlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: fit-content;
+  height: fit-content;
+  padding: 5%;
+  border-radius: 20px;
+  font-size: 50%;
+}
